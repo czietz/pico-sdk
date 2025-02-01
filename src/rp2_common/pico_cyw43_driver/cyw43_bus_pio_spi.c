@@ -260,6 +260,7 @@ int cyw43_spi_transfer(cyw43_int_t *self, const uint8_t *tx, size_t tx_length, u
         pio_sm_exec(bus_data->pio, bus_data->pio_sm, pio_encode_jmp(bus_data->pio_offset));
         dma_channel_abort(bus_data->dma_out);
         dma_channel_abort(bus_data->dma_in);
+        asm volatile("nop \n nop \n nop");
 
         dma_channel_config out_config = dma_channel_get_default_config(bus_data->dma_out);
         channel_config_set_bswap(&out_config, true);
@@ -301,6 +302,7 @@ int cyw43_spi_transfer(cyw43_int_t *self, const uint8_t *tx, size_t tx_length, u
         pio_sm_exec(bus_data->pio, bus_data->pio_sm, pio_encode_out(pio_y, 32));
         pio_sm_exec(bus_data->pio, bus_data->pio_sm, pio_encode_jmp(bus_data->pio_offset));
         dma_channel_abort(bus_data->dma_out);
+        asm volatile("nop \n nop \n nop");
 
         dma_channel_config out_config = dma_channel_get_default_config(bus_data->dma_out);
         channel_config_set_bswap(&out_config, true);
